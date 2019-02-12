@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Solo: A Star Wars Story",
+        "trailerYouTubeId": "jPEYpryMp2s",
+        "imdbId": "tt3778644"
+    },
+    {
+        "title": "Rogue One: A Star Wars Story",
+        "trailerYouTubeId": "frdj1zb9sMY",
+        "imdbId": "tt3748528"
+    },
+    {
+        "title": "Star Wars: Episode VIII - The Last Jedi",
+        "trailerYouTubeId": "Q0CbN8sfihY",
+        "imdbId": "tt2527336"
+    },
+    {
+        "title": "Star Wars: Episode VII - The Force Awakens",
+        "trailerYouTubeId": "sGbxmsDFVnE",
+        "imdbId": "tt2488496"
+    }
+]
