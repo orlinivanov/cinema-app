@@ -10,12 +10,15 @@ class App extends Component {
       selectedMovie: {},
       rows: [],
       tickets: 3,
-      selectedSeats: []
+      selectedSeats: [],
+      movies: []
     }
     this.onSeatClicked = this.onSeatClicked.bind(this);
+    this.getMovieList = this.getMovieList.bind(this);
   }
   componentDidMount() {
     // console.log(this.props);
+    this.getMovieList();
     fetch('/hall.json')
       .then((res) => res.json())
       .then((data) => {
@@ -63,7 +66,7 @@ class App extends Component {
           <h1>Zelena Polyana Cinema</h1>
           <Navigation />
         </header>
-        <AppRouter state={this.state} onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} getMovieList={this.getMovieList} />
+        <AppRouter state={this.state} onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} getMovieList={this.getMovieList} movies={this.state.movies} />
       </section>
     );
   }
