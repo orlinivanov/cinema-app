@@ -5,7 +5,7 @@ import YouTubeLink from './YouTubeLink';
 
 const Home = (props) => {
   console.log(props);
-  if (props.selectedMovie) {
+  if (props.selectedMovie.imdbId) {
     return <Redirect to='/choose' />
   }
   return (
