@@ -8,7 +8,7 @@ const AppRouter = (props) => {
   const parentProps = props;
   return (
     <Switch>
-      <Route path='/' render={(props) => <Home {...props} {...parentProps} />} />
+      {/* <Route path='/' render={(props) => <Home {...props} {...parentProps} />} /> */}
       <Route path='/home' render={(props) => <Home {...props} {...parentProps} />} />
       {/* <Route path='/home' component={Home} /> */}
       <Route path='/choose' render={(props) => <Choose {...props} {...parentProps} />} />
