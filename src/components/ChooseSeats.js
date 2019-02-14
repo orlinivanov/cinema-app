@@ -1,37 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
+import YouTubeContainer from './YouTubeContainer';
+import { Redirect } from 'react-router-dom';
+import HallLayout from './HallLayout';
 
-const Choose = (props) => {
-  console.log(props);
-  // console.log(state);
-  return (
-    <main>
-      <h2>Movie Name</h2>
-      <iframe width="480" height="270" src="https://www.youtube.com/embed/jPEYpryMp2s" title={`SoloAStarWarsStory`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-      <p>
-        Choose your seats: 
-        {props.selectedSeats.length > 0 &&
-          <span> {props.selectedSeats.join(', ')}</span>
+class Choose extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: []
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.selectedMovie.imdbId) {
+      fetch(`${this.props.selectedMovie.imdbId}.json`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.setState({
+            rows: data.rows
+          });
+          console.log(this.state);
+        });
+    }
+  }
+
+  render() {
+    console.log(this.props);
+    // console.log(state);
+    if (!this.props.selectedMovie.imdbId) {
+      return <Redirect to='/home' />
+    }
+    return (
+      <main>
+        <h2>{this.props.selectedMovie.title}</h2>
+        <YouTubeContainer
+          trailerYouTubeId={this.props.selectedMovie.trailerYouTubeId}
+          title={this.props.selectedMovie.title}
+        />
+        <p>
+          Number of tickets:
+          <input type="number" name="tickets" id="tickets" min="1" max="6" placeholder="0" disabled={this.props.tickets}/>
+          <button onClick={this.props.selectNumberOfTickets} disabled={this.props.tickets}>Choose Seats</button>
+          <button onClick={this.props.choseAnotherMovie}>Cancel</button>
+        </p>
+        {this.props.tickets > 0 &&
+          <HallLayout {...this.props} {...this.state}/>
         }
-        {props.selectedSeats.length === props.tickets &&
-          <button onClick={props.onConfirmClicked}>Confirm</button>
-        }
-      </p>
-      
-      <h5>Screen</h5>
-      <div className='rows'>
-        {props.rows.map(row => {
-          return (<div key={`row${row.rowNumber}`} className='row'>
-            Row: {row.rowNumber}
-            {row.seats.map(seat => {
-              return (<div data-seat-num={`r${row.rowNumber}s${seat.seatNumber}`} className={`seat ${seat.seatType}`} key={`r${row.rowNumber}s${seat.seatNumber}`} onClick={props.onSeatClicked}>{seat.seatNumber}</div>);
-            })}
-          </div>);
-        })}
-      </div>
-      
-      
-    </main>
-  )
+        
+      </main>
+    )
+  }
+
 };
 
 export default Choose;
