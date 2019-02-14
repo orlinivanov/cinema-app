@@ -9,33 +9,44 @@ class App extends Component {
     super(props);
     
     this.state = {
-      selectedMovie: '',
-      rows: [],
-      tickets: 3,
+      selectedMovie: {},
+      tickets: 0,
       selectedSeats: [],
       movies: []
     }
     this.onSeatClicked = this.onSeatClicked.bind(this);
     this.getMovieList = this.getMovieList.bind(this);
     this.selectMovie = this.selectMovie.bind(this);
+    this.selectNumberOfTickets = this.selectNumberOfTickets.bind(this);
+    this.choseAnotherMovie = this.choseAnotherMovie.bind(this);
   }
   componentDidMount() {
     this.getMovieList();
-    fetch('/hall.json')
-      .then((res) => res.json())
-      .then((data) => {
-        // this.setState({
-        //   hallNumber: data.hallNumber,
-        //   numberOfRows: data.numberOfRows,
-        //   rows: data.rows.slice(0)
-        // });
-      });
   }
 
   selectMovie(evt) {
-    // console.log(evt.target.dataset);
     const imdbId = evt.target.dataset.imdbid;
-    this.setState(prevState => ({selectedMovie: imdbId}));
+    const selectedMovieDetails = this.state.movies.filter((movie) => {
+      return movie.imdbId === imdbId;
+    })[0];
+    this.setState(prevState => ({selectedMovie: selectedMovieDetails}));
+    console.log(selectedMovieDetails);
+  }
+
+  selectNumberOfTickets(evt) {
+    const numberOfTickets = +document.getElementById('tickets').value;
+    if (numberOfTickets > 0) {
+      this.setState(prevState => ({tickets: numberOfTickets}));
+      console.log(this.state);
+    }
+  }
+
+  choseAnotherMovie(evt) {
+    this.setState(prevState => ({
+      tickets: 0,
+      selectedMovie: {},
+      selectedSeats: []
+    }));
     console.log(this.state);
   }
 
@@ -52,7 +63,6 @@ class App extends Component {
 
   onSeatClicked(evt) {
     const seat = evt.target;
-    // console.log(seat.dataset);
     if (this.state.selectedSeats.length < this.state.tickets) {
       this.setState(prevState => ({
         selectedSeats: prevState.selectedSeats.concat([seat.dataset.seatNum])
@@ -72,9 +82,9 @@ class App extends Component {
       <section>
         <header>
           <h1>Zelena Polyana Cinema</h1>
-          <Navigation />
+          {/* <Navigation /> */}
         </header>
-        <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} {...this.state} />
+        <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} {...this.state} />
       </section>
     );
   }
