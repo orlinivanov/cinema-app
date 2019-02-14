@@ -1,17 +1,23 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import IMDBRating from './IMDBRating';
+import YouTubeLink from './YouTubeLink';
 
 const Home = (props) => {
-  // console.log(props);
-  // props.getMovieList();
+  console.log(props);
+  if (props.selectedMovie) {
+    return <Redirect to='/choose' />
+  }
   return (
-    <div>
-      <h4>Choose your movie:</h4>
+    <div className="movies-container">
+      {/* <h4>Choose your movie:</h4> */}
       {props.movies.map((movie, i) => (
         <div key={i} className='pick-movie-container'>
-          <main>{movie.title}</main>
-          <aside><IMDBRating titleId={movie.imdbId} /></aside>
-          <aside>{movie.trailerYouTubeId}</aside>
+          <div data-imdbid={movie.imdbId} onClick={props.selectMovie}>{movie.title}</div>
+          <div>
+            <IMDBRating titleId={movie.imdbId} />
+            <YouTubeLink videoId={movie.trailerYouTubeId} />
+          </div>
         </div>
       ))}
     </div>
