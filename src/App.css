@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.movies-container {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.pick-movie-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 .rows {
   display: inline-block;
 }
