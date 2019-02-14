@@ -9,17 +9,17 @@ const Choose = (props) => {
       <iframe width="480" height="270" src="https://www.youtube.com/embed/jPEYpryMp2s" title={`SoloAStarWarsStory`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       <p>
         Choose your seats: 
-        {props.state.selectedSeats.length > 0 &&
-          <span> {props.state.selectedSeats.join(', ')}</span>
+        {props.selectedSeats.length > 0 &&
+          <span> {props.selectedSeats.join(', ')}</span>
         }
-        {props.state.selectedSeats.length === props.state.tickets &&
+        {props.selectedSeats.length === props.tickets &&
           <button onClick={props.onConfirmClicked}>Confirm</button>
         }
       </p>
       
       <h5>Screen</h5>
       <div className='rows'>
-        {props.state.rows.map(row => {
+        {props.rows.map(row => {
           return (<div key={`row${row.rowNumber}`} className='row'>
             Row: {row.rowNumber}
             {row.seats.map(seat => {
