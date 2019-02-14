@@ -1,3 +1,7 @@
+input, button {
+  margin: .2rem;
+}
+
 #root>section {
   text-align: center;
 }
