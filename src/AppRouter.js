@@ -5,12 +5,12 @@ import Choose from './components/ChooseSeats';
 // import AllItems from './components/AllItems';
 
 const AppRouter = (props) => {
-  // console.log(props);
+  const parentProps = props;
   return (
     <Switch>
-      <Route path='/home' render={() => <Home getMovieList={props.getMovieList} movies={props.movies} />} />
-      <Route path='/choose' render={() => <Choose state={props.state} onSeatClicked={props.onSeatClicked} onConfirmClicked={props.onConfirmClicked} />} />
-      {/* <Route path='/ticket' component={AllItems} /> */}
+      <Route path='/home' render={(props) => <Home {...props} {...parentProps} />} />
+      {/* <Route path='/home' component={Home} /> */}
+      <Route path='/choose' render={(props) => <Choose {...props} {...parentProps} />} />
     </Switch>
   )
 };
