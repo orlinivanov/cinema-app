@@ -1,5 +1,51 @@
+body {
+  padding-top: 6rem;
+  background-color: #333;
+}
+
+header {
+  background: #1B1B1A;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 1rem;
+}
+
+header>h1 {
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #eee;
+}
+
+label {
+  color: #c9c9c9;
+}
+
 input, button {
   margin: .2rem;
+  outline: none;
+  border: none;
+  padding: .25rem .5rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+}
+
+button {
+  background-color: #579c49;
+  color: #242424;
+  font-weight: bold;
+}
+
+button.cancel {
+  background-color: #FF5757
+}
+
+button:disabled {
+  background-color: #BABABA;
+  color: #787878
 }
 
 #root>section {
@@ -8,13 +54,33 @@ input, button {
 
 .movies-container {
   margin: 0 auto;
+  padding: .3rem;
   width: 50%;
+  border-radius: .3rem;
+  background-color: #555;
+
 }
 
 .pick-movie-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  color: #fff;
+}
+
+.pick-movie-container:hover {
+  border: 1px solid #ccc;
+}
+
+.movie-title {
+  cursor: pointer;
+}
+
+.movie-details a {
+  margin: 0 .25rem;
 }
 
 .rows {
@@ -36,14 +102,59 @@ input, button {
   cursor: pointer;
 }
 
-.seat.special {
-  background-color: aqua;
+.seat {
+  background-color: #BABABA;
 }
 
+/* .seat.special {
+  background-color: aqua;
+} */
+
 .seat.selected {
-  background-color: chartreuse;
+  background-color: #579c49;
 }
 
 .seat.taken {
   background-color: darkred;
+}
+
+.tickets-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ticket {
+  position: relative;
+  margin: .5rem;
+  border-radius: .3rem;
+  width: 15rem;
+  background-color: #fff;
+}
+
+.ticket:before {
+  position: relative;
+  top: 50%;
+  left: -.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: .5rem;
+  background-color: #333;
+  content: "";
+}
+
+.ticket:after {
+  position: absolute;
+  top: 50%;
+  right: -.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: .5rem;
+  background-color: #333;
+  content: "";
+}
+
+.ticket>h3, .ticket>h4 {
+  color: #000;
 }
