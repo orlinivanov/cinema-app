@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 import AppRouter from './AppRouter';
-import Navigation from './components/Navigation';
+// import Navigation from './components/Navigation';
 import './App.css';
 
 class App extends Component {
@@ -9,16 +9,19 @@ class App extends Component {
     super(props);
     
     this.state = {
+      movies: [],
       selectedMovie: {},
       tickets: 0,
       selectedSeats: [],
-      movies: []
+      reservationConfirmed: false
     }
-    this.onSeatClicked = this.onSeatClicked.bind(this);
     this.getMovieList = this.getMovieList.bind(this);
     this.selectMovie = this.selectMovie.bind(this);
     this.selectNumberOfTickets = this.selectNumberOfTickets.bind(this);
     this.choseAnotherMovie = this.choseAnotherMovie.bind(this);
+    this.onSeatClicked = this.onSeatClicked.bind(this);
+    this.onConfirmClicked = this.onConfirmClicked.bind(this);
+    this.startAgain = this.startAgain.bind(this);
   }
   componentDidMount() {
     this.getMovieList();
@@ -30,14 +33,15 @@ class App extends Component {
       return movie.imdbId === imdbId;
     })[0];
     this.setState(prevState => ({selectedMovie: selectedMovieDetails}));
-    console.log(selectedMovieDetails);
+    // console.log(selectedMovieDetails);
   }
 
   selectNumberOfTickets(evt) {
     const numberOfTickets = +document.getElementById('tickets').value;
-    if (numberOfTickets > 0) {
+    // console.log(numberOfTickets);
+    if (numberOfTickets > 0 && numberOfTickets <= 6) {
       this.setState(prevState => ({tickets: numberOfTickets}));
-      console.log(this.state);
+      // console.log(this.state);
     }
   }
 
@@ -47,7 +51,7 @@ class App extends Component {
       selectedMovie: {},
       selectedSeats: []
     }));
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   getMovieList() {
@@ -57,34 +61,52 @@ class App extends Component {
         this.setState({
           movies: data
         });
-        console.log(this.state);
+        // console.log(this.state);
       });
   }
 
   onSeatClicked(evt) {
     const seat = evt.target;
-    if (this.state.selectedSeats.length < this.state.tickets) {
+    const seatDetails = {row: seat.dataset.seatRow, seat: seat.dataset.seatNumber}
+    // console.log(seat.dataset);
+    if (this.state.selectedSeats.length < this.state.tickets && !this.state.selectedSeats.find(seat => (seat.row === seatDetails.row && seat.seat === seatDetails.seat)) ) {
       this.setState(prevState => ({
-        selectedSeats: prevState.selectedSeats.concat([seat.dataset.seatNum])
+        selectedSeats: prevState.selectedSeats.concat([seatDetails])
       }));
       seat.className += ' selected';
 
-      console.log(this.state);
+      // console.log(this.state);
+    } else if (this.state.selectedSeats.find(seat => (seat.row === seatDetails.row && seat.seat === seatDetails.seat))) {
+      this.setState(prevState => ({
+        selectedSeats: prevState.selectedSeats.filter(seat => !(seat.row === seatDetails.row && seat.seat === seatDetails.seat))
+      }));
+      seat.className = seat.className.replace('selected', '');
+      // console.log(this.state);
     }
   }
 
   onConfirmClicked() {
-    alert('Reservation confirmed');
+    this.setState(prevState => ({
+      reservationConfirmed: true
+    }));
+  }
+
+  startAgain() {
+    this.setState(prevState => ({
+      selectedMovie: {},
+      tickets: 0,
+      selectedSeats: [],
+      reservationConfirmed: false
+    }));
   }
 
   render() {
     return (
       <section>
         <header>
-          <h1>Zelena Polyana Cinema</h1>
-          {/* <Navigation /> */}
+          <h1>Zelena Polyana Theatre</h1>
         </header>
-        <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} {...this.state} />
+        <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} startAgain={this.startAgain} {...this.state} />
       </section>
     );
   }
