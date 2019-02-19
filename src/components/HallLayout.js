@@ -4,15 +4,7 @@ const HallLayout = (props) => {
   // console.log(props);
   return (
     <>
-      <p>
-        Choose your seats:
-          {props.selectedSeats.length > 0 &&
-          <span> {props.selectedSeats.join(', ')}</span>
-        }
-        {props.selectedSeats.length > 0 && props.selectedSeats.length === props.tickets &&
-          <button onClick={props.onConfirmClicked}>Confirm</button>
-        }
-      </p>
+      <h4>Choose your seats:</h4>
       <h5>Screen</h5>
       <div className='rows'>
         {props.rows.map(row => {
@@ -21,7 +13,8 @@ const HallLayout = (props) => {
             {row.seats.map(seat => {
               return (
                 <div
-                  data-seat-num={`r${row.rowNumber}s${seat.seatNumber}`}
+                  data-seat-row={row.rowNumber}
+                  data-seat-number={seat.seatNumber}
                   className={`seat ${seat.seatType}`}
                   key={`r${row.rowNumber}s${seat.seatNumber}`}
                   onClick={props.onSeatClicked}
