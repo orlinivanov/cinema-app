@@ -16,7 +16,6 @@ class App extends Component {
       reservationConfirmed: false
     }
     this.getMovieList = this.getMovieList.bind(this);
-    this.selectMovie = this.selectMovie.bind(this);
     this.selectNumberOfTickets = this.selectNumberOfTickets.bind(this);
     this.choseAnotherMovie = this.choseAnotherMovie.bind(this);
     this.onSeatClicked = this.onSeatClicked.bind(this);
@@ -27,7 +26,7 @@ class App extends Component {
     this.getMovieList();
   }
 
-  selectMovie(evt) {
+  selectMovie = (evt) => {
     const imdbId = evt.target.dataset.imdbid;
     const selectedMovieDetails = this.state.movies.filter((movie) => {
       return movie.imdbId === imdbId;
@@ -55,7 +54,7 @@ class App extends Component {
   }
 
   getMovieList() {
-    fetch('/movies.json')
+    fetch('./movies.json')
       .then((res) => res.json())
       .then((data) => {
         this.setState({
