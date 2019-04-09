@@ -75,12 +75,9 @@ class App extends Component {
         <header>
           <h1>Zelena Polyana Theatre</h1>
         </header>
-        {/* <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} startAgain={this.startAgain} {...this.state} /> */}
         <AppRouter
           setNewState={this.setNewState}
           setStateVal={this.setStateVal}
-          setSelectedMovie={this.setSelectedMovie}
-          setNumberOfTickets={this.setNumberOfTickets}
           addOrRemoveSeat={this.addOrRemoveSeat}
           {...this.state}
         />
