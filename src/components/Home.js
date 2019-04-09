@@ -4,7 +4,6 @@ import IMDBRating from './IMDBRating';
 import YouTubeLink from './YouTubeLink';
 
 const Home = (props) => {
-  console.log(props);
   if (props.selectedMovie.imdbId) {
     return <Redirect to='/choose' />
   }

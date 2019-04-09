@@ -8,7 +8,7 @@ class Choose extends Component {
     super(props);
     this.state = {
       rows: [],
-      numberOfTicketsEntered: false
+      numberOfTicketsConfirmed: !!this.props.numberOfTickets
     };
   }
 
@@ -29,7 +29,8 @@ class Choose extends Component {
   onNumberOfTicketsChanged = (evt) => {
     const numberOfTickets = +evt.target.value;
     if(numberOfTickets > 0 && numberOfTickets <= 6) {
-      this.setState(prevState => ({numberOfTicketsEntered: true}));
+      // this.setState(prevState => ({numberOfTicketsEntered: true}));
+      this.props.setNumberOfTickets(numberOfTickets);
     }
   }
 
@@ -63,10 +64,19 @@ class Choose extends Component {
             id="tickets" 
             min="1" max="6" 
             placeholder="0" 
-            disabled={this.props.numberOfTickets}
+            disabled={this.state.numberOfTicketsConfirmed}
           />
           {/* <button>+</button> */}
-          <button id="choose-tickets-btn" onClick={this.props.selectNumberOfTickets} disabled={!this.state.numberOfTicketsEntered || this.props.tickets > 0}>Choose Seats</button>
+          {/* <button id="choose-tickets-btn" onClick={this.props.selectNumberOfTickets} disabled={!this.state.numberOfTicketsEntered || this.props.tickets > 0}>Choose Seats</button> */}
+          <button 
+            id="choose-tickets-btn" 
+            onClick={() => {
+              this.setState(prevState => ({numberOfTicketsConfirmed: true}))
+            }} 
+            disabled={this.props.tickets < 1 || this.state.numberOfTicketsConfirmed}
+          >
+            Choose Seats
+          </button>
           <button 
             onClick={this.props.onConfirmClicked}
             disabled={!(this.props.selectedSeats.length > 0 && this.props.selectedSeats.length === this.props.tickets)}
@@ -83,7 +93,7 @@ class Choose extends Component {
             Cancel
           </button>
         </p>
-        {this.props.tickets > 0 &&
+        {this.props.numberOfTickets > 0 && this.state.numberOfTicketsConfirmed &&
           <HallLayout {...this.props} {...this.state}/>
         }
       </main>

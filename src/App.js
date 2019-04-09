@@ -23,9 +23,6 @@ class App extends Component {
   }
 
   setSelectedMovie = (imdbId) => {
-    // console.log(movieDetails);
-    // this.setState(prevState => ({selectedMovie: movieDetails}));
-    console.log(this.state.movies);
     const selectedMovieDetails = imdbId
       ? 
       this.state.movies.filter((movie) => {
@@ -38,6 +35,7 @@ class App extends Component {
 
   setNumberOfTickets = (selectedNumberOfTickets) => {
     this.setState(prevState => ({numberOfTickets: selectedNumberOfTickets}));
+    // console.log(this.state);
   }
 
   setSelectedSeats = (seatsArr) => {
