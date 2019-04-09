@@ -1,7 +1,6 @@
 import React from 'react';
 
 const HallLayout = (props) => {
-  // console.log(props);
   return (
     <>
       <h4>Choose your seats:</h4>
@@ -11,15 +10,19 @@ const HallLayout = (props) => {
           return (<div key={`row${row.rowNumber}`} className='row'>
             Row: {row.rowNumber}
             {row.seats.map(seat => {
+              let clsNm = !!props.selectedSeats.find(selectedSeat => {
+                return selectedSeat.row === row.rowNumber && selectedSeat.seat === seat.seatNumber;
+              }) ? 'selected' : '';
               return (
                 <div
-                  data-seat-row={row.rowNumber}
-                  data-seat-number={seat.seatNumber}
-                  className={`seat ${seat.seatType}`}
+                  className={`seat ${clsNm}`}
                   key={`r${row.rowNumber}s${seat.seatNumber}`}
-                  onClick={props.onSeatClicked}
+                  onClick={(evt) => {
+                    // console.log({ row: row.rowNumber, seat: seat.seatNumber });
+                    props.addOrRemoveSeat({ row: row.rowNumber, seat: seat.seatNumber });
+                  }}
                 >
-                  {seat.seatNumber}
+                  {seat.seatNumber + 1}
                 </div>
               );
             })}

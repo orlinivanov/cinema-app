@@ -13,7 +13,6 @@ class Choose extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props);
     if (this.props.selectedMovie.imdbId) {
       fetch(`${this.props.selectedMovie.imdbId}.json`)
         .then((res) => res.json())
@@ -21,30 +20,26 @@ class Choose extends Component {
           this.setState({
             rows: data.rows
           });
-          // console.log(this.state);
         });
     }
   }
-  
+
   onNumberOfTicketsChanged = (evt) => {
     const numberOfTickets = +evt.target.value;
-    if(numberOfTickets > 0 && numberOfTickets <= 6) {
-      // this.setState(prevState => ({numberOfTicketsEntered: true}));
-      this.props.setNumberOfTickets(numberOfTickets);
+    if (numberOfTickets > 0 && numberOfTickets <= 6) {
+      this.props.setStateVal('selectedNumberOfTickets', numberOfTickets);
     }
   }
 
   render() {
-    // console.log(this.props);
-    // console.log(state);
     if (!this.props.selectedMovie.imdbId) {
       return <Redirect to='/home' />
     } else if (
-        this.props.selectedMovie.imdbId 
-        && this.props.numberOfTickets > 0
-        && this.props.selectedSeats.length === this.props.tickets
-        && this.props.reservationConfirmed
-      ) {
+      this.props.selectedMovie.imdbId
+      && this.props.numberOfTickets > 0
+      && this.props.selectedSeats.length === this.props.numberOfTickets
+      && this.props.reservationConfirmed
+    ) {
       return <Redirect to='/tickets' />
     }
     return (
@@ -56,50 +51,60 @@ class Choose extends Component {
         <h2>{this.props.selectedMovie.title}</h2>
         <p>
           <label htmlFor="tickets">Number of tickets:</label>
-          {/* <button>-</button> */}
-          <input 
-            type="number" 
-            name="tickets" 
+          <input
+            type="number"
+            name="tickets"
             onChange={this.onNumberOfTicketsChanged}
-            id="tickets" 
-            min="1" max="6" 
-            placeholder="0" 
+            id="tickets"
+            min="1" max="6"
+            placeholder="0"
+            value={this.props.numberOfTickets}
             disabled={this.state.numberOfTicketsConfirmed}
           />
-          {/* <button>+</button> */}
-          {/* <button id="choose-tickets-btn" onClick={this.props.selectNumberOfTickets} disabled={!this.state.numberOfTicketsEntered || this.props.tickets > 0}>Choose Seats</button> */}
-          <button 
-            id="choose-tickets-btn" 
+          <button
+            id="choose-tickets-btn"
             onClick={() => {
-              this.setState(prevState => ({numberOfTicketsConfirmed: true}))
-            }} 
-            disabled={this.props.tickets < 1 || this.state.numberOfTicketsConfirmed}
+              this.setState(prevState => ({ numberOfTicketsConfirmed: true }))
+            }}
+            disabled={this.props.numberOfTickets < 1 || this.state.numberOfTicketsConfirmed}
           >
             Choose Seats
           </button>
-          <button 
-            onClick={this.props.onConfirmClicked}
-            disabled={!(this.props.selectedSeats.length > 0 && this.props.selectedSeats.length === this.props.tickets)}
-            >
+          <button
+            onClick={() => {
+              if (this.props.numberOfTickets === this.props.selectedSeats.length) {
+                this.props.setStateVal('reservationConfirmed', true);
+              }
+            }}
+            disabled={!(this.props.selectedSeats.length > 0 && this.props.selectedSeats.length === this.props.numberOfTickets)}
+          >
             Confirm
           </button>
-          <button 
-            className='cancel' 
+          <button
+            className='cancel'
             onClick={() => {
-              this.props.setSelectedMovie();
-              this.props.setNumberOfTickets(0);
+              this.props.setNewState(prevState => ({
+                selectedMovie: {},
+                numberOfTickets: 0,
+                selectedSeats: [],
+                reservationConfirmed: false
+              }));
+
             }}
           >
             Cancel
           </button>
         </p>
         {this.props.numberOfTickets > 0 && this.state.numberOfTicketsConfirmed &&
-          <HallLayout {...this.props} {...this.state}/>
+          <HallLayout
+            rows={this.state.rows}
+            addOrRemoveSeat={this.props.addOrRemoveSeat}
+            selectedSeats={this.props.selectedSeats}
+          />
         }
       </main>
     )
   }
-
 };
 
 export default Choose;

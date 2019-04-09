@@ -16,7 +16,18 @@ const Tickets = (props) => {
   return (
     <>
     <h2>Your tickets:</h2>
-    <button onClick={props.startAgain}>Start Again</button>
+    <button 
+      onClick={() => {
+        props.setNewState(prevState => ({
+          selectedMovie: {},
+          numberOfTickets: 0,
+          selectedSeats: [],
+          reservationConfirmed: false
+        }));
+      }}
+    >
+      Start Again
+    </button>
     <div className='tickets-list'>
       {props.selectedSeats.map((seat, i) => (
           <div key={i} className='ticket'>
