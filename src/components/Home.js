@@ -14,7 +14,7 @@ const Home = (props) => {
       <div className="movies-container">
         {props.movies.map((movie, i) => (
           <div key={i} className='pick-movie-container'>
-            <div className='movie-title' onClick={() => {props.setMovie({imdbId: movie.imdbId, title: movie.title})}}>{movie.title}</div>
+            <div className='movie-title' onClick={() => {props.setSelectedMovie({imdbId: movie.imdbId, title: movie.title})}}>{movie.title}</div>
             <div className='movie-details'>
               <IMDBRating titleId={movie.imdbId} />
               <YouTubeLink videoId={movie.trailerYouTubeId} />

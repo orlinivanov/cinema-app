@@ -11,24 +11,28 @@ class App extends Component {
     this.state = {
       movies: [],
       selectedMovie: {},
-      tickets: 0,
+      numberOfTickets: 0,
       selectedSeats: [],
       reservationConfirmed: false
     }
     this.getMovieList = this.getMovieList.bind(this);
-    this.selectNumberOfTickets = this.selectNumberOfTickets.bind(this);
-    this.choseAnotherMovie = this.choseAnotherMovie.bind(this);
-    this.onSeatClicked = this.onSeatClicked.bind(this);
-    this.onConfirmClicked = this.onConfirmClicked.bind(this);
-    this.startAgain = this.startAgain.bind(this);
   }
+
   componentDidMount() {
     this.getMovieList();
   }
 
-  setMovie = (movieDetails) => {
+  setSelectedMovie = (movieDetails) => {
     console.log(movieDetails);
     this.setState(prevState => ({selectedMovie: movieDetails}));
+  }
+
+  setNumberOfTickets = (selectedNumberOfTickets) => {
+    this.setState(prevState => ({numberOfTickets: selectedNumberOfTickets}));
+  }
+
+  setSelectedSeats = (seatsArr) => {
+    this.setState(prevState => ({selectedSeats: seatsArr.slice()}))
   }
 
   selectMovie = (evt) => {
@@ -111,7 +115,11 @@ class App extends Component {
           <h1>Zelena Polyana Theatre</h1>
         </header>
         {/* <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} startAgain={this.startAgain} {...this.state} /> */}
-        <AppRouter setMovie={this.setMovie} {...this.state}/>
+        <AppRouter 
+          setSelectedMovie={this.setSelectedMovie} 
+          setNumberOfTickets={this.setNumberOfTickets}
+          {...this.state}
+        />
       </section>
     );
   }
