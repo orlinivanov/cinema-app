@@ -22,9 +22,18 @@ class App extends Component {
     this.getMovieList();
   }
 
-  setSelectedMovie = (movieDetails) => {
-    console.log(movieDetails);
-    this.setState(prevState => ({selectedMovie: movieDetails}));
+  setSelectedMovie = (imdbId) => {
+    // console.log(movieDetails);
+    // this.setState(prevState => ({selectedMovie: movieDetails}));
+    console.log(this.state.movies);
+    const selectedMovieDetails = imdbId
+      ? 
+      this.state.movies.filter((movie) => {
+        return movie.imdbId === imdbId;
+      })[0]
+      :
+      {};
+    this.setState(prevState => ({selectedMovie: selectedMovieDetails}));
   }
 
   setNumberOfTickets = (selectedNumberOfTickets) => {
@@ -42,15 +51,6 @@ class App extends Component {
     })[0];
     this.setState(prevState => ({selectedMovie: selectedMovieDetails}));
     // console.log(selectedMovieDetails);
-  }
-
-  selectNumberOfTickets(evt) {
-    const numberOfTickets = +document.getElementById('tickets').value;
-    // console.log(numberOfTickets);
-    if (numberOfTickets > 0 && numberOfTickets <= 6) {
-      this.setState(prevState => ({tickets: numberOfTickets}));
-      // console.log(this.state);
-    }
   }
 
   choseAnotherMovie(evt) {

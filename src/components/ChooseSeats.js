@@ -10,8 +10,6 @@ class Choose extends Component {
       rows: [],
       numberOfTicketsEntered: false
     };
-
-    this.onNumberOfTicketsChanged = this.onNumberOfTicketsChanged.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +26,8 @@ class Choose extends Component {
     }
   }
   
-  onNumberOfTicketsChanged(evt) {
+  onNumberOfTicketsChanged = (evt) => {
     const numberOfTickets = +evt.target.value;
-    // const btn = document.getElementById('choose-tickets-btn');
     if(numberOfTickets > 0 && numberOfTickets <= 6) {
       this.setState(prevState => ({numberOfTicketsEntered: true}));
     }
@@ -43,7 +40,7 @@ class Choose extends Component {
       return <Redirect to='/home' />
     } else if (
         this.props.selectedMovie.imdbId 
-        && this.props.tickets > 0
+        && this.props.numberOfTickets > 0
         && this.props.selectedSeats.length === this.props.tickets
         && this.props.reservationConfirmed
       ) {
@@ -66,7 +63,7 @@ class Choose extends Component {
             id="tickets" 
             min="1" max="6" 
             placeholder="0" 
-            disabled={this.props.tickets}
+            disabled={this.props.numberOfTickets}
           />
           {/* <button>+</button> */}
           <button id="choose-tickets-btn" onClick={this.props.selectNumberOfTickets} disabled={!this.state.numberOfTicketsEntered || this.props.tickets > 0}>Choose Seats</button>
@@ -79,7 +76,7 @@ class Choose extends Component {
           <button 
             className='cancel' 
             onClick={() => {
-              this.props.setSelectedMovie({});
+              this.props.setSelectedMovie();
               this.props.setNumberOfTickets(0);
             }}
           >
