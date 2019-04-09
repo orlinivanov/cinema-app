@@ -26,6 +26,11 @@ class App extends Component {
     this.getMovieList();
   }
 
+  setMovie = (movieDetails) => {
+    console.log(movieDetails);
+    this.setState(prevState => ({selectedMovie: movieDetails}));
+  }
+
   selectMovie = (evt) => {
     const imdbId = evt.target.dataset.imdbid;
     const selectedMovieDetails = this.state.movies.filter((movie) => {
@@ -105,7 +110,8 @@ class App extends Component {
         <header>
           <h1>Zelena Polyana Theatre</h1>
         </header>
-        <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} startAgain={this.startAgain} {...this.state} />
+        {/* <AppRouter onSeatClicked={this.onSeatClicked} onConfirmClicked={this.onConfirmClicked} selectMovie={this.selectMovie} selectNumberOfTickets={this.selectNumberOfTickets} choseAnotherMovie={this.choseAnotherMovie} startAgain={this.startAgain} {...this.state} /> */}
+        <AppRouter setMovie={this.setMovie} {...this.state}/>
       </section>
     );
   }

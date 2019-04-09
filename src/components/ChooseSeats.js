@@ -15,6 +15,7 @@ class Choose extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props);
     if (this.props.selectedMovie.imdbId) {
       fetch(`${this.props.selectedMovie.imdbId}.json`)
         .then((res) => res.json())
