@@ -76,7 +76,15 @@ class Choose extends Component {
             >
             Confirm
           </button>
-          <button className='cancel' onClick={() => {this.props.setSelectedMovie({})}}>Cancel</button>
+          <button 
+            className='cancel' 
+            onClick={() => {
+              this.props.setSelectedMovie({});
+              this.props.setNumberOfTickets(0);
+            }}
+          >
+            Cancel
+          </button>
         </p>
         {this.props.tickets > 0 &&
           <HallLayout {...this.props} {...this.state}/>
