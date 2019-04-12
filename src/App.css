@@ -92,18 +92,24 @@ button:disabled {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
+  color: #c9c9c9;
 }
 
 .seat {
+  position: relative;
   margin: .2rem;
   border: 1px solid #000;
+  border-radius: .5rem;
   width: 1.5rem;
+  box-shadow: 2px 2px 3px 0px #111;
+  background-color: #BABABA;
+  color: #242424;
   text-align: center;
   cursor: pointer;
 }
 
-.seat {
-  background-color: #BABABA;
+.seat:hover {
+  background-color: rgb(187, 131, 11);
 }
 
 /* .seat.special {
@@ -114,6 +120,15 @@ button:disabled {
   background-color: #579c49;
 }
 
+.seat.selected:hover:before { 
+  position: absolute;
+  left: 0;
+  border-radius: .5rem;
+  width: 100%;
+  background-color: #FF5757;
+  content: 'x';
+}
+
 .seat.taken {
   background-color: darkred;
 }
@@ -121,6 +136,7 @@ button:disabled {
 .tickets-list {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .ticket {
