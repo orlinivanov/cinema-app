@@ -49,7 +49,7 @@ class App extends Component {
       this.setState(prevState => ({ selectedSeats: newVal.slice() }));
     }
     if (name === 'reservationConfirmed') {
-      this.setState(prevState => ({ reservationConfirmed: true}));
+      this.setState(prevState => ({ reservationConfirmed: true }));
     }
   }
 
@@ -71,17 +71,20 @@ class App extends Component {
 
   render() {
     return (
-      <section>
+      <>
         <header>
           <h1>Zelena Polyana Theatre</h1>
         </header>
-        <AppRouter
-          setNewState={this.setNewState}
-          setStateVal={this.setStateVal}
-          addOrRemoveSeat={this.addOrRemoveSeat}
-          {...this.state}
-        />
-      </section>
+        <section>
+
+          <AppRouter
+            setNewState={this.setNewState}
+            setStateVal={this.setStateVal}
+            addOrRemoveSeat={this.addOrRemoveSeat}
+            {...this.state}
+          />
+        </section>
+      </>
     );
   }
 }
