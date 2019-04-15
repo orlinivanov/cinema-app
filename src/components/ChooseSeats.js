@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import YouTubeContainer from './YouTubeContainer';
 import { Redirect } from 'react-router-dom';
+import Navigation from './Navigation';
 import HallLayout from './HallLayout';
 
 class Choose extends Component {
@@ -44,6 +45,7 @@ class Choose extends Component {
     }
     return (
       <main>
+        <Navigation />
         <YouTubeContainer
           trailerYouTubeId={this.props.selectedMovie.trailerYouTubeId}
           title={this.props.selectedMovie.title}
