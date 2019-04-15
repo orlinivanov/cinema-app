@@ -1,6 +1,7 @@
 body {
-  padding-top: 6rem;
+  padding-top: 4rem;
   background-color: #333;
+  color: #ccc;
 }
 
 header {
@@ -9,6 +10,7 @@ header {
   width: 100%;
   top: 0;
   padding: 1rem;
+  text-align: center;
 }
 
 header>h1 {
@@ -16,8 +18,16 @@ header>h1 {
   margin: 0;
 }
 
+nav a {
+  margin: 0 .3rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: #eee;
+}
+
+nav {
+  margin: 1rem;
 }
 
 label {
@@ -48,39 +58,70 @@ button:disabled {
   color: #787878
 }
 
+a {
+  color: #099;
+}
+
+div.trailer-container {
+  position: relative;
+  margin: 0 auto;
+  width: 480px;
+  height: 270px;
+  color: #787878;
+}
+
+div.trailer-container>iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 #root>section {
   text-align: center;
 }
 
 .movies-container {
   margin: 0 auto;
-  padding: .3rem;
+  padding: 0 .3rem;
+  /* padding-bottom: 0; */
   width: 50%;
-  border-radius: .3rem;
   background-color: #555;
-
+  border-radius: .3rem;
 }
 
 .pick-movie-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-between;
   border: 1px solid transparent;
-  padding: .5rem 1rem;
-  border-radius: .3rem;
+  border-bottom-color: #787878;
+  /* padding: .5rem 1rem; */
   color: #fff;
 }
-
-.pick-movie-container:hover {
-  border: 1px solid #ccc;
+.pick-movie-container:last-child {
+  border-bottom-color: transparent;
 }
 
 .movie-title {
+  flex: 1 0 auto;
+  padding: .5rem 0 .6rem 0;
   cursor: pointer;
 }
 
+.movie-title:hover {
+  background-color: #2c2c2c;
+  border-radius: .3rem;
+}
+.movie-details {
+  display: flex;
+}
 .movie-details a {
-  margin: 0 .25rem;
+  padding: .5rem 1rem .3rem 1rem;
+}
+
+.movie-details a:hover {
+  background-color: #2c2c2c;
+  border-radius: .3rem;
 }
 
 .rows {
@@ -145,6 +186,7 @@ button:disabled {
   border-radius: .3rem;
   width: 15rem;
   background-color: #fff;
+  color: #000;
 }
 
 .ticket:before {
